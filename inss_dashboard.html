@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard INSS - Extrato de Remuneração Detalhado</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --primary: #3b82f6;
+            --success-bg: #dcfce7;
+            --success-text: #166534;
+            --danger-bg: #fee2e2;
+            --danger-text: #991b1b;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-title h1 {
+            font-size: 1.8rem;
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        .header-title p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 0.2rem;
+        }
+
+        .badge-user {
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .metric-card span {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .metric-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .card-table {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            max-height: 650px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: #f1f5f9;
+            color: #475569;
+            font-weight: 600;
+            padding: 1rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        td {
+            padding: 0.85rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            color: #334155;
+        }
+
+        tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .status-pago {
+            background-color: var(--success-bg);
+            color: var(--success-text);
+        }
+
+        .status-atraso {
+            background-color: var(--danger-bg);
+            color: var(--danger-text);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="header-title">
+            <h1><i class="fa-solid fa-chart-line" style="color: var(--primary);"></i> Dashboard CNIS / INSS</h1>
+            <p>Histórico Mês a Mês - Fundo Municipal de Educação de Conceição do Araguaia</p>
+        </div>
+        <div class="badge-user">
+            <i class="fa-solid fa-user-shield"></i> Márcio Rodrigues de Oliveira
+        </div>
+    </header>
+
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <span>Período Analisado</span>
+            <h3>06/2012 – 07/2026</h3>
+        </div>
+        <div class="metric-card">
+            <span>Total de Meses</span>
+            <h3>160 Meses</h3>
+        </div>
+        <div class="metric-card">
+            <span>Órgão Empregador</span>
+            <h3>Prefeitura / Fundo de Educação</h3>
+        </div>
+    </div>
+
+    <div class="card-table">
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ano/Mês</th>
+                        <th>Remuneração</th>
+                        <th>Prefeito</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 2012 (Início em Junho) -->
+                    <tr><td><strong>06/2012</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 1.467,99)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>07/2012</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 2.201,99)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>08/2012</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 2.201,99)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>09/2012</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 2.642,38)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>10/2012</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 2.642,38)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>11/2012</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 2.642,38)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>12/2012</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 2.642,38)</span></td><td>Valter Peixoto</td></tr>
+                    
+                    <!-- 2013 -->
+                    <tr><td><strong>01/2013</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 2.201,99)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>02/2013</strong></td><td><span class="status-badge status-atraso"><i class="fa-solid fa-triangle-exclamation"></i> ATRASO</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>03/2013</strong></td><td><span class="status-badge status-atraso"><i class="fa-solid fa-triangle-exclamation"></i> ATRASO</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>04/2013</strong></td><td><span class="status-badge status-atraso"><i class="fa-solid fa-triangle-exclamation"></i> ATRASO</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>05/2013</strong></td><td><span class="status-badge status-atraso"><i class="fa-solid fa-triangle-exclamation"></i> ATRASO</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>06/2013</strong></td><td><span class="status-badge status-atraso"><i class="fa-solid fa-triangle-exclamation"></i> ATRASO</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>07/2013</strong></td><td><span class="status-badge status-atraso"><i class="fa-solid fa-triangle-exclamation"></i> ATRASO</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>08/2013</strong></td><td><span class="status-badge status-atraso"><i class="fa-solid fa-triangle-exclamation"></i> ATRASO</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>09/2013</strong></td><td><span class="status-badge status-atraso"><i class="fa-solid fa-triangle-exclamation"></i> ATRASO</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>10/2013</strong></td><td><span class="status-badge status-atraso"><i class="fa-solid fa-triangle-exclamation"></i> ATRASO</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>11/2013</strong></td><td><span class="status-badge status-atraso"><i class="fa-solid fa-triangle-exclamation"></i> ATRASO</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>12/2013</strong></td><td><span class="status-badge status-atraso"><i class="fa-solid fa-triangle-exclamation"></i> ATRASO</span></td><td>Valter Peixoto</td></tr>
+
+                    <!-- 2014 -->
+                    <tr><td><strong>01/2014</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 2.224,00)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>02/2014</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 3.754,37)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>03/2014</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 3.754,37)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>04/2014</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 3.754,37)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>05/2014</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 3.754,37)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>06/2014</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 5.606,53)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>07/2014</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 4.885,60)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>08/2014</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 4.239,64)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>09/2014</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 4.239,64)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>10/2014</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 4.239,64)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>11/2014</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 4.717,09)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>12/2014</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 3.486,23)</span></td><td>Valter Peixoto</td></tr>
+
+                    <!-- 2015 -->
+                    <tr><td><strong>01/2015</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 4.717,09)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>02/2015</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 4.717,09)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>03/2015</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 4.717,09)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>04/2015</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 4.717,09)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>05/2015</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 4.717,09)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>06/2015</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 4.717,09)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>07/2015</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 4.717,09)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>08/2015</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 4.717,09)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>09/2015</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 3.097,83)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>10/2015</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 3.097,83)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>11/2015</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 3.097,83)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>12/2015</strong></td><td><span class="status-badge status-atraso"><i class="fa-solid fa-triangle-exclamation"></i> ATRASO</span></td><td>Valter Peixoto</td></tr>
+
+                    <!-- 2016 -->
+                    <tr><td><strong>01/2016</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 3.746,59)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>02/2016</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 3.746,59)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>03/2016</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 4.182,65)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>04/2016</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 4.182,65)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>05/2016</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 3.510,32)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>06/2016</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 3.844,04)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>07/2016</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 3.844,04)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>08/2016</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 3.844,04)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>09/2016</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 4.182,65)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>10/2016</strong></td><td><span class="status-badge status-atraso"><i class="fa-solid fa-triangle-exclamation"></i> ATRASO</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>11/2016</strong></td><td><span class="status-badge status-pago"><i class="fa-solid fa-check"></i> PAGO (R$ 4.182,65)</span></td><td>Valter Peixoto</td></tr>
+                    <tr><td><strong>12/2016</strong></td><td><span class="status-badge status-atraso"><i class="fa-solid fa-triangle-exclamation"></i> ATRASO</span></td><td>Valter Peixoto</td></tr>
+
+                    <!-- 2017 -->
+                    <tr><td><strong>01/2017</strong></td><td><span class="status-badge status-pago">PAGO (R$ 4.222,51)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>02/2017</strong></td><td><span class="status-badge status-pago">PAGO (R$ 4.222,51)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>03/2017</strong></td><td><span class="status-badge status-pago">PAGO (R$ 4.222,51)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>04/2017</strong></td><td><span class="status-badge status-pago">PAGO (R$ 4.222,51)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>05/2017</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>06/2017</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>07/2017</strong></td><td><span class="status-badge status-pago">PAGO (R$ 4.257,12)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>08/2017</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>09/2017</strong></td><td><span class="status-badge status-pago">PAGO (R$ 4.257,12)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>10/2017</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>11/2017</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>12/2017</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+
+                    <!-- 2018 -->
+                    <tr><td><strong>01/2018</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>02/2018</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>03/2018</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>04/2018</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>05/2018</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>06/2018</strong></td><td><span class="status-badge status-pago">PAGO (R$ 4.635,06)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>07/2018</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>08/2018</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>09/2018</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>10/2018</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>11/2018</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>12/2018</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+
+                    <!-- 2019 -->
+                    <tr><td><strong>01/2019</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>02/2019</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>03/2019</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>04/2019</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>05/2019</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>06/2019</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>07/2019</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>08/2019</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>09/2019</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>10/2019</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>11/2019</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>12/2019</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+
+                    <!-- 2020 -->
+                    <tr><td><strong>01/2020</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>02/2020</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>03/2020</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>04/2020</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>05/2020</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>06/2020</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>07/2020</strong></td><td><span class="status-badge status-pago">PAGO (R$ 5.008,87)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>08/2020</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>09/2020</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>10/2020</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>11/2020</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>12/2020</strong></td><td><span class="status-badge status-pago">PAGO (R$ 5.008,87)</span></td><td>Jair Martins</td></tr>
+
+                    <!-- 2021 -->
+                    <tr><td><strong>01/2021</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>02/2021</strong></td><td><span class="status-badge status-pago">PAGO (R$ 5.008,87)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>03/2021</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>04/2021</strong></td><td><span class="status-badge status-pago">PAGO (R$ 5.008,87)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>05/2021</strong></td><td><span class="status-badge status-pago">PAGO (R$ 5.008,87)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>06/2021</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>07/2021</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>08/2021</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>09/2021</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>10/2021</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>11/2021</strong></td><td><span class="status-badge status-atraso">ATRASO</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>12/2021</strong></td><td><span class="status-badge status-pago">PAGO (R$ 5.158,39)</span></td><td>Jair Martins</td></tr>
+
+                    <!-- 2022 -->
+                    <tr><td><strong>01/2022</strong></td><td><span class="status-badge status-pago">PAGO (R$ 5.158,39)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>02/2022</strong></td><td><span class="status-badge status-pago">PAGO (R$ 5.158,39)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>03/2022</strong></td><td><span class="status-badge status-pago">PAGO (R$ 5.158,39)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>04/2022</strong></td><td><span class="status-badge status-pago">PAGO (R$ 7.763,83)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>05/2022</strong></td><td><span class="status-badge status-pago">PAGO (R$ 5.809,75)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>06/2022</strong></td><td><span class="status-badge status-pago">PAGO (R$ 7.802,47)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>07/2022</strong></td><td><span class="status-badge status-pago">PAGO (R$ 5.851,85)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>08/2022</strong></td><td><span class="status-badge status-pago">PAGO (R$ 5.851,85)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>09/2022</strong></td><td><span class="status-badge status-pago">PAGO (R$ 5.851,85)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>10/2022</strong></td><td><span class="status-badge status-pago">PAGO (R$ 5.851,85)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>11/2022</strong></td><td><span class="status-badge status-pago">PAGO (R$ 5.851,85)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>12/2022</strong></td><td><span class="status-badge status-pago">PAGO (R$ 5.851,85)</span></td><td>Jair Martins</td></tr>
+
+                    <!-- 2023 -->
+                    <tr><td><strong>01/2023</strong></td><td><span class="status-badge status-pago">PAGO (R$ 5.851,85)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>02/2023</strong></td><td><span class="status-badge status-pago">PAGO (R$ 5.851,85)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>03/2023</strong></td><td><span class="status-badge status-pago">PAGO (R$ 5.851,85)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>04/2023</strong></td><td><span class="status-badge status-pago">PAGO (R$ 5.851,85)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>05/2023</strong></td><td><span class="status-badge status-pago">PAGO (R$ 5.851,85)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>06/2023</strong></td><td><span class="status-badge status-pago">PAGO (R$ 7.858,60)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>07/2023</strong></td><td><span class="status-badge status-pago">PAGO (R$ 5.893,95)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>08/2023</strong></td><td><span class="status-badge status-pago">PAGO (R$ 5.893,95)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>09/2023</strong></td><td><span class="status-badge status-pago">PAGO (R$ 6.483,33)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>10/2023</strong></td><td><span class="status-badge status-pago">PAGO (R$ 6.483,33)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>11/2023</strong></td><td><span class="status-badge status-pago">PAGO (R$ 6.483,33)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>12/2023</strong></td><td><span class="status-badge status-pago">PAGO (R$ 6.483,33)</span></td><td>Jair Martins</td></tr>
+
+                    <!-- 2024 -->
+                    <tr><td><strong>01/2024</strong></td><td><span class="status-badge status-pago">PAGO (R$ 6.483,33)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>02/2024</strong></td><td><span class="status-badge status-pago">PAGO (R$ 6.483,33)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>03/2024</strong></td><td><span class="status-badge status-pago">PAGO (R$ 6.392,09)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>04/2024</strong></td><td><span class="status-badge status-pago">PAGO (R$ 6.392,09)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>05/2024</strong></td><td><span class="status-badge status-pago">PAGO (R$ 6.392,09)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>06/2024</strong></td><td><span class="status-badge status-pago">PAGO (R$ 8.720,99)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>07/2024</strong></td><td><span class="status-badge status-pago">PAGO (R$ 6.392,09)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>08/2024</strong></td><td><span class="status-badge status-pago">PAGO (R$ 6.392,09)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>09/2024</strong></td><td><span class="status-badge status-pago">PAGO (R$ 6.392,09)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>10/2024</strong></td><td><span class="status-badge status-pago">PAGO (R$ 6.540,74)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>11/2024</strong></td><td><span class="status-badge status-pago">PAGO (R$ 6.540,74)</span></td><td>Jair Martins</td></tr>
+                    <tr><td><strong>12/2024</strong></td><td><span class="status-badge status-pago">PAGO (R$ 6.540,74)</span></td><td>Jair Martins</td></tr>
+
+                    <!-- 2025 -->
+                    <tr><td><strong>01/2025</strong></td><td><span class="status-badge status-pago">PAGO (R$ 7.135,35)</span></td><td>Elida Elena</td></tr>
+                    <tr><td><strong>02/2025</strong></td><td><span class="status-badge status-pago">PAGO (R$ 7.135,35)</span></td><td>Elida Elena</td></tr>
+                    <tr><td><strong>03/2025</strong></td><td><span class="status-badge status-pago">PAGO (R$ 7.135,35)</span></td><td>Elida Elena</td></tr>
+                    <tr><td><strong>04/2025</strong></td><td><span class="status-badge status-pago">PAGO (R$ 7.135,35)</span></td><td>Elida Elena</td></tr>
+                    <tr><td><strong>05/2025</strong></td><td><span class="status-badge status-pago">PAGO (R$ 7.135,35)</span></td><td>Elida Elena</td></tr>
+                    <tr><td><strong>06/2025</strong></td><td><span class="status-badge status-pago">PAGO (R$ 11.180,60)</span></td><td>Elida Elena</td></tr>
+                    <tr><td><strong>07/2025</strong></td><td><span class="status-badge status-pago">PAGO (R$ 7.635,39)</span></td><td>Elida Elena</td></tr>
+                    <tr><td><strong>08/2025</strong></td><td><span class="status-badge status-pago">PAGO (R$ 7.635,39)</span></td><td>Elida Elena</td></tr>
+                    <tr><td><strong>09/2025</strong></td><td><span class="status-badge status-pago">PAGO (R$ 7.635,39)</span></td><td>Elida Elena</td></tr>
+                    <tr><td><strong>10/2025</strong></td><td><span class="status-badge status-pago">PAGO (R$ 7.635,39)</span></td><td>Elida Elena</td></tr>
+                    <tr><td><strong>11/2025</strong></td><td><span class="status-badge status-pago">PAGO (R$ 7.635,39)</span></td><td>Elida Elena</td></tr>
+                    <tr><td><strong>12/2025</strong></td><td><span class="status-badge status-pago">PAGO (R$ 7.635,39)</span></td><td>Elida Elena</td></tr>
+
+                    <!-- 2026 -->
+                    <tr><td><strong>01/2026</strong></td><td><span class="status-badge status-pago">PAGO (R$ 7.635,39)</span></td><td>Elida Elena</td></tr>
+                    <tr><td><strong>02/2026</strong></td><td><span class="status-badge status-pago">PAGO (R$ 7.635,39)</span></td><td>Elida Elena</td></tr>
+                    <tr><td><strong>03/2026</strong></td><td><span class="status-badge status-pago">PAGO (R$ 8.460,03)</span></td><td>Elida Elena</td></tr>
+                    <tr><td><strong>04/2026</strong></td><td><span class="status-badge status-pago">PAGO (R$ 8.460,03)</span></td><td>Elida Elena</td></tr>
+                    <tr><td><strong>05/2026</strong></td><td><span class="status-badge status-pago">PAGO (R$ 8.047,71)</span></td><td>Elida Elena</td></tr>
+                    <tr><td><strong>06/2026</strong></td><td><span class="status-badge status-pago">PAGO (R$ 10.804,28)</span></td><td>Elida Elena</td></tr>
+                    <tr><td><strong>07/2026</strong></td><td><span class="status-badge status-pago">PAGO (R$ 8.103,21)</span></td><td>Elida Elena</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        <p>Dashboard gerado com base nas informações oficiais extraídas do Extrato Previdenciário.</p>
+    </footer>
+</div>
+
+</body>
+</html>
